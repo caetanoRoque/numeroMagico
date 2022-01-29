@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Número Mágico</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- perguntar como fazer o site ficar menor z index -->
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    @font-face {
+        font-family: 'bit';
+        src: url('slkscreb.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+    body{
+        background-image: url(fundo1080.jpg);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        color:ivory;
+    }
+    .container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 25%;
+    }
+    button{
+        height: 50px;
+        width: 100px;
+        background-color: rgb(245, 105, 128);
+        border-radius: 10px;
+        font-size: 80%;
+        font-family: "bit";
+        box-shadow: 0 7px rgb(223, 156, 167);   
+    }
+    
+button:hover {background-color: #eb2466}
+
+button:active {
+  background-color: #eb2466;
+  box-shadow: 0 3px rgb(226, 57, 85);
+  transform: translateY(4px);
+}
+.pvp{
+    margin-top: 16px;
+}
+.pve{
+    margin-top: 8px;
+}
+    
+    .ok{
+        height: 25px;
+        width: 50px;
+        font-size: 100%;
+        box-shadow: 0 6px rgb(223, 156, 167);  
+    }
+    input{
+        height: 50px;
+        width: 100px;
+        border-radius: 10px;
+        font-size: 25px;
+        text-align: center;
+        font-family: "bit";
+        background-color: rgb(44, 110, 209);
+        color: ivory;
+    }
+    p{
+        font-family: "bit";
+        font-size: 25px;
+        color: rgb(0, 0, 0);
+        text-shadow: 2px 2px 4px rgb(88, 240, 126);
+        /* problema */
+        
+    }
+    .rs{
+        color: rgb(104, 172, 2);
+        text-shadow: 2px 2px 4px rgb(0, 0, 0);
+    }
+    .jogo{
+        display: flex;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 75%;
+        flex-direction: column;
+
+    }
+   h1{
+       font-size: 25px;
+   }
+   .alto{
+       width: 100px;
+       height: 35px;
+       text-align: center;  
+       color: rgb(114, 189, 1);
+       font-family: "bit";
+       
+
+   }
+   .baixo{
+       width: 100px;
+       height: 35px;
+       text-align: center;
+       color:crimson;
+       font-family: "bit";
+   }
+   input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+    
+    }
+    input[type=number] { 
+   -moz-appearance: textfield;
+   appearance: textfield;
+    }
+    .resultado{
+        height: 35px;
+        width: 300px;
+        text-align: center;
+        margin-top: 15px;
+    }
+    .confirmar{
+        width: 100px;
+        height: 35px; 
+        font-size: 70%;
+        
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="divPve" class="pve">
+            <button onclick="dif()">PvE</button>
+        </div> 
+        <div id='divPvp' class="pvp">
+            <button onclick="pvp()">PvP</button>
+        </div><br>
+    </div>
+    <div id="divJogo" class="jogo">
+    </div>
+    <!-- <script src=""></script> -->
+
+
+    <script>
+        //testando um bgl
+        
+
+
+
+
+        interruptor=0
+        interruptor2=0
+        i=0
+        function dif(){
+            document.getElementById('divPve').innerHTML=`<button id="facil" onclick="facil()">Facil</button>
+<button id="medio" onclick="medio()">Medio</button>
+<button id="dificil" onclick="dificil()">Dificil</button> ... <button onclick="Voltar()">Voltar</button>`
+            document.getElementById("divPvp").innerHTML=""
+        //facil
+            document.getElementById("facil").addEventListener("mouseenter", mouseEnterf);
+            document.getElementById("facil").addEventListener("mouseleave", mouseLeavef);
+
+        function mouseEnterf() {
+        document.getElementById("facil").innerHTML = '0 a 10';
+        document.getElementById("facil").style.backgroundColor = 'white';
+        }
+
+        function mouseLeavef() {
+        document.getElementById("facil").innerHTML = "Facil";
+        document.getElementById("facil").style.backgroundColor = 'rgb(245, 105, 128)';
+        }
+        //medio
+        document.getElementById("medio").addEventListener("mouseenter", mouseEnter);
+        document.getElementById("medio").addEventListener("mouseleave", mouseLeave);
+
+        function mouseEnter() {
+        document.getElementById("medio").innerHTML = '0 a 100';
+        document.getElementById("medio").style.backgroundColor = 'white';
+        }
+
+        function mouseLeave() {
+        document.getElementById("medio").innerHTML = "Medio";
+        document.getElementById("medio").style.backgroundColor = 'rgb(245, 105, 128)';
+        }
+        //dificil
+        document.getElementById("dificil").addEventListener("mouseenter", mouseEnterd);
+        document.getElementById("dificil").addEventListener("mouseleave", mouseLeaved);
+
+        function mouseEnterd() {
+        document.getElementById("dificil").innerHTML = '0 a 1000';
+        document.getElementById("dificil").style.backgroundColor = 'white';
+        }
+
+        function mouseLeaved() {
+        document.getElementById("dificil").innerHTML = "Dificil";
+        document.getElementById("dificil").style.backgroundColor = 'rgb(245, 105, 128)';
+        }
+        }
+        function facil(){
+            document.getElementById('divJogo').innerHTML=`<div id="divAlto" class='alto'>&nbsp;</div>
+        <input type="number" id="inpN" class="inp"> 
+        <div id='divBaixo' class='baixo'>&nbsp;</div>
+        <button onclick="teste()" class='confirmar'>Confirmar</button>
+        <div id='divResultado' class='resultado'></div>`
+            document.getElementById('divPve').innerHTML='<button>Facil</button> ... <button onclick="Voltar()">Voltar</button>'
+            interruptor=1
+            n=10
+            pve()
+        }
+        function medio(){
+            document.getElementById('divJogo').innerHTML=`<div id="divAlto" class='alto'>&nbsp;</div>
+        <input type="number" id="inpN" class="inp"> 
+        <div id='divBaixo' class='baixo'>&nbsp;</div>
+        <button onclick="teste()" class='confirmar'>Confirmar</button>
+        <div id='divResultado' class='resultado'></div>`
+            document.getElementById('divPve').innerHTML='<button>Medio</button> ... <button onclick="Voltar()">Voltar</button>'
+            interruptor=1
+            n=100
+            pve()
+        }
+        function dificil(){
+            document.getElementById('divJogo').innerHTML=`<div id="divAlto" class='alto'>&nbsp;</div>
+        <input type="number" id="inpN" class="inp">
+        <div id='divBaixo' class='baixo'>&nbsp;</div>
+        <button onclick="teste()" class='confirmar'>Confirmar</button>
+        <div id='divResultado' class='resultado'></div>`
+            document.getElementById('divPve').innerHTML='<button>Dificil</button> ... <button onclick="Voltar()">Voltar</button>'
+            interruptor=1
+            n=1000
+            pve()
+        }
+        function Voltar(){
+            document.getElementById('divPve').innerHTML=`<button onclick="dif()">PvE</button>`
+            document.getElementById('divPvp').innerHTML=`<button onclick='pvp()'>PvP</button>`
+            document.getElementById('divJogo').innerHTML=``
+
+            interruptor=0
+            interruptor2=0
+            i=0
+
+        }
+        function pve(){
+            if(interruptor==1){
+                numM=Math.round(Math.random()*n)
+                console.log(numM)
+            }
+        }
+        function teste(){
+            if(interruptor==1||interruptor2==1){ 
+            i++
+            document.getElementById('inpN').innerHTML=''
+            document.getElementById('divBaixo').innerHTML=''
+            document.getElementById('divAlto').innerHTML=''
+            nTeste=document.getElementById('inpN').value
+            if(nTeste==numM){
+                document.getElementById('divResultado').innerHTML=`<p class='rs'>Vitoria na rodada ${i}</p> `
+                //adicionei depois pode dar merda
+                interruptor=0
+                interruptor2=0
+            }
+            if(nTeste<numM){
+                document.getElementById('divBaixo').innerHTML='<h1>baixo</h1>'
+            }
+            if(nTeste>numM){
+                document.getElementById('divAlto').innerHTML='<h1>alto</h1>'
+            }
+        }
+        }
+        function pvp(){
+            document.getElementById('divPve').innerHTML=""
+            document.getElementById('divPvp').innerHTML=`<button>PvP</button> ... <button onclick="Voltar()">Voltar</button>`
+            interruptor2=1
+            interruptor=0
+            if(interruptor2==1){
+                document.getElementById('divJogo').innerHTML=`<p>Digite o numero magico: </p><input type="password" id="inpNmagico"><button class='ok'onclick="pvp2()">OK</button>`
+            }
+        }
+        function pvp2(){
+        numM=(document.getElementById('inpNmagico').value)
+        console.log(numM)
+        if(numM!=""){
+
+            document.getElementById('divJogo').innerHTML=`<div id="divAlto" class='alto'>&nbsp;</div>
+            <input type="number" id="inpN" class="inp"> 
+            <div id='divBaixo' class='baixo'>&nbsp;</div>
+            <button onclick="teste()" class='confirmar'>Confirmar</button>
+            <div id='divResultado' class='resultado'></div>`
+        }
+        }
+    
+        
+
+        </script>
+
+    
+</body>
+</html>
